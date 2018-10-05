@@ -1,0 +1,30 @@
+<html>
+<body>
+  Welcome
+  <button onclick="cardSelected()">Submit</button>
+  <button onclick="cancel()">Cancel</button>
+</body>
+</html>
+
+<script>
+  navigator.serviceWorker.controller.postMessage('payment_app_window_ready');
+  
+  function cardSelected(){  
+    var paymentAppResponse = {
+      methodName: "https://clean-mall.glitch.me/pay",
+      details: {
+        cardHolderName:   "John Smith",
+        cardNumber:       "1232343451234",
+        expiryMonth:      "12",
+        expiryYear :      "2020",
+        cardSecurityCode: "123"
+     }
+    }
+    navigator.serviceWorker.controller.postMessage(paymentAppResponse);    
+  }
+  
+  function cancel() {
+    navigator.serviceWorker.controller.postMessage('The payment request is cancelled by user');    
+  }
+</script>
+
